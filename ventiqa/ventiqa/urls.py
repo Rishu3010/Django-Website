@@ -20,4 +20,7 @@ from mainapp import views as mainapp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.index, name='index'),
+    # path('divine/', mainapp.divine, name='divine'),
+    # path('mystic/', mainapp.mystic, name='mystic'),
+    path('products/<str:name>/', mainapp.product_detail, name='product_detail'),
 ]
