@@ -7,13 +7,28 @@
     <title>Ventiqa|Mystic</title>
   </head>
   <body>
-    <h1>{{ product.name }} Subscriptions:</h1>
+    {% comment %} <h1>{{ product.name }}</h1>
 
     {% for subscription in subscriptions %}
-    <p>Duration: {{ subscription.duration }} months</p>
-    <p>Price: ${{ subscription.price }}</p>
+    <h2>{{ subscription.duration }} months - ${{ subscription.price }}</h2>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <input type="submit" value="Buy" />
+    </form>
     {% empty %}
     <p>No subscriptions available for this product.</p>
-    {% endfor %}
+    {% endfor %} {% endcomment %}
+    <h1>Products</h1>
+  <ul>  
+      <li>
+        <h2>{{ product.name }}</h2>
+        {% for subscription in subscriptions %}
+            
+              Subscription: {{ subscription.duration }} months for ${{ subscription.price }}
+              <a href="checkout/{{subscription.subscription_id}}">Buy now</a>
+            
+        {% endfor %}
+      </li>
+  </ul>
   </body>
 </html>

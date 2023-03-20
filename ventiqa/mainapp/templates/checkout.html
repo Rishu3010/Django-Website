@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ventiqa</title>
+    </head>
+    <body>
+        <p> This is checkout page </p>
+        <p> Product Name : {{ product.name }} </p>
+        <p> Subscription price : ${{ subscription.price }} </p>
+        <p> Subscription name : {{ subscription.subscription_id }} </p>
+        <p> Subscription duration : {{ subscription.duration }} </p>
+
+        {% comment %} Form which takes user details and set product name, price, duration as hidden fields {% endcomment %}
+
+        <form method="post" action="{{subscription.subscription_id}}/payment" >
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Pay</button>
+        </form>
+
+
+    </body>
+</html>
