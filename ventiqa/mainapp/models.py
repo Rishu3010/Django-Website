@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Product(models.Model):
-    product_id = models.CharField(max_length=50, primary_key=True, default='')
+    product_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     remaining_stock = models.IntegerField(default=-1)
 
@@ -15,6 +15,7 @@ class Product(models.Model):
 
 class Subscription(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True, blank=True)
+    subscription_id = models.IntegerField(primary_key=True)
     duration = models.IntegerField(null=True, blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
 
