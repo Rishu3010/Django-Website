@@ -20,11 +20,10 @@ from mainapp import views as mainapp
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.index, name='index'),
-    # path('divine/', mainapp.divine, name='divine'),
-    # path('mystic/', mainapp.mystic, name='mystic'),
     path('products/<str:p_name>/', mainapp.product_detail, name='product_detail'),
-    # path('subscriptions/<int:id>/', mainapp.subscription_buy, name='subscription_detail'),
     path('products/<str:p_name>/checkout/<int:sub_id>', mainapp.checkout, name='checkout'),
     path('products/<str:p_name>/checkout/<int:sub_id>/payment', mainapp.payment, name='payment'),
-    # path('paypal/', include('paypal.standard.ipn.urls')),
+    path('paypaltest/', mainapp.paypaltest, name='paypaltest'),
+    path('paypaltest/processOrder', mainapp.processOrder, name='processOrder'),
+ 
 ]
