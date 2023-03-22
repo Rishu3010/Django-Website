@@ -21,9 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainapp.index, name='index'),
     path('products/<str:p_name>/', mainapp.product_detail, name='product_detail'),
-    path('products/<str:p_name>/checkout/<int:sub_id>', mainapp.checkout, name='checkout'),
-    path('products/<str:p_name>/checkout/<int:sub_id>/payment', mainapp.payment, name='payment'),
-    path('paypaltest/', mainapp.paypaltest, name='paypaltest'),
-    path('paypaltest/processOrder', mainapp.processOrder, name='processOrder'),
- 
+    path('products/<str:p_name>/checkout/<int:sub_id>/', mainapp.checkout, name='checkout'),
+    path('products/<str:p_name>/checkout/<int:sub_id>/payment/', mainapp.payment, name='payment'),
+    path('products/<str:p_name>/checkout/<int:sub_id>/payment/createOrder/', mainapp.createOrder, name='createOrder'),
+    path('products/<str:p_name>/checkout/<int:sub_id>/payment/captureOrder/', mainapp.captureOrder, name='captureOrder'), 
 ]

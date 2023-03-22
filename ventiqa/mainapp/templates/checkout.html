@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <title>Ventiqa</title>
     </head>
     <body>
@@ -15,10 +16,10 @@
 
         {% comment %} Form which takes user details and set product name, price, duration as hidden fields {% endcomment %}
 
-        <form method="post" action="{{subscription.subscription_id}}/payment" >
+        <form method="post" action="payment/" >
             {% csrf_token %}
-            {{ form }}
-            <button type="submit">Pay</button>
+            {{ form.as_p }}
+            <button type="submit">Proceed</button>
         </form>
 
 

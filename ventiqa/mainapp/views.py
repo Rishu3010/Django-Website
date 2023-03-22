@@ -2,9 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from mainapp.models import Product
-from mainapp.models import Subscription
+from mainapp.models import Product, Subscription
 from mainapp.forms import CheckoutForm
+from mainapp.payUtils import createOrder, captureOrder
+from ventiqa.settings import CLIENT_ID, APP_SECRET
 
 def index(request):
     return render(request, 'index.html')
@@ -29,6 +30,7 @@ def checkout(request, p_name, sub_id):
      
     return render(request, 'checkout.html', {'product': product, 'subscription': subscription, 'form': MyCheckoutForm})
 
+@csrf_exempt
 def payment(request, p_name, sub_id):
     product = get_object_or_404(Product, name=p_name.capitalize())
     # extract the details of the subscription chosen in the product page, i.e. in the url
@@ -42,12 +44,4 @@ def payment(request, p_name, sub_id):
             print(MyCheckoutForm.cleaned_data['phone_number'])
             print(MyCheckoutForm.cleaned_data['address'])
             
-    return HttpResponse("Payment Successful")
-
-@csrf_exempt
-def paypaltest(request):
-    return render(request, 'paypaltest.html')
-
-@csrf_exempt
-def processOrder(request):
-    return JsonResponse('Payment submitted..', safe=False)
+    return render(request, 'payment.html', {'product': product, 'subscription': subscription, "CLIENT_ID": f'{CLIENT_ID}'})

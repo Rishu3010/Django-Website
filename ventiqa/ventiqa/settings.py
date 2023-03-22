@@ -12,22 +12,31 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+import dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Add .env variables anywhere before SECRET_KEY
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h2=a49fc(baq*p^-tr5=_)f_1)fl8u1-bcb8oc4#%(9oijci9g'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# PayPal Settings
+PAYPAL_MODE = os.environ.get("PAYPAL_MODE")
+CLIENT_ID = os.environ.get("CLIENT_ID")
+APP_SECRET = os.environ.get("APP_SECRET")
 
 # Application definition
 
@@ -131,8 +140,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-#PAYPAL SETTINGS
-
-# PAYPAL_RECEIVER_EMAIL = 'rishutestbiz@example.com'
-# PAYPAL_TEST = True
