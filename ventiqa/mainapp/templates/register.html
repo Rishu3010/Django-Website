@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ventiqa</title>
+    </head>
+    <body>
+        <h1>Ventiqa</h1>
+        {% load static %}
+        <img src={% static 'Img/Ventiqa_Blue.png' %} alt="Ventiqa Logo">
+        <form action='' method=POST>
+            {% csrf_token %}
+            {% comment %} <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Email Address">
+            <label for="username">Username</label>
+            <input type="username" id="username" name="username" placeholder="Username">
+            <label for="first_name">First Name</label>
+            <input type="first_name" id="first_name" name="first_name" placeholder="First Name">
+            <label for="last_name">Last Name</label>
+            <input type="last_name" id="last_name" name="last_name" placeholder="Last Name">
+            <label for="phone_number">Phone Number</label>
+            <input type="phone_number" id="phone_number" name="phone_number" placeholder="Phone Number">
+            <label for="country">Country of Residence</label>
+            <input type="country" id="country" name="country" placeholder="Country">
+
+            <label for="password1">Password</label>
+            <input type="password1" id="password1" name="password1">
+            <label for="password2">Confirm Password</label>
+            <input type="password2" id="password2" name="password2"> {% endcomment %}
+
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+            {% endif %}
+
+            {{ form.as_p }}
+
+            
+                
+            <input type="submit" value="Signup">
+        </form>
+    </body>
+</html>

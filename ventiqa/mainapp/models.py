@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 
@@ -26,12 +27,8 @@ class Subscription(models.Model):
         verbose_name_plural = 'Subscriptions'
 
 
-# Auth ~ Rishu
 
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
-# Custom User Manager
-
+# Custom User Manager Implementation
 class CustomAccountManager(BaseUserManager):
     
     def create_user(self, email, username, first_name, last_name, phone_number, country, password, **other_fields):
@@ -39,6 +36,7 @@ class CustomAccountManager(BaseUserManager):
             raise ValueError('You must provide the required fields')
         
         email = self.normalize_email(email)
+        username = username.lower()
         user = self.model(email=email, username=username, first_name=first_name, last_name=last_name, phone_number=phone_number, country=country, **other_fields)
         user.set_password(password)
         user.save(using= self._db)
@@ -60,11 +58,9 @@ class CustomAccountManager(BaseUserManager):
 
 
 # Custom User Model
-
 class Account(AbstractBaseUser):
 
-    #Required fields since we are extending AbstractBaseUser    
-    email = models.EmailField(verbose_name="Email Address", max_length=60, unique=True)
+    email = models.EmailField(verbose_name="Email Address", max_length=255, unique=True)
     username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(max_length=30, null=False, blank=False, verbose_name="First Name")
     last_name = models.CharField(max_length=30, null=False, blank=False, verbose_name="Last Name")
@@ -74,12 +70,9 @@ class Account(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-
-    #Additional fields
     phone_number = models.CharField(max_length=10, null=False, blank=False, verbose_name="Phone Number")
-    country = models.CharField(max_length=30, null=False, blank=False, verbose_name="Country of Residence")
+    country = models.CharField(max_length=50, null=False, blank=False, verbose_name="Country of Residence")
 
-    # Set the custom user manager
     objects = CustomAccountManager()
 
     USERNAME_FIELD = 'email'
