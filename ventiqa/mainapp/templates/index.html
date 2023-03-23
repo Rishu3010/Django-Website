@@ -8,11 +8,22 @@
     </head>
     <body>
         <h1>Ventiqa</h1>
+
+        {% if user.is_authenticated %}
+        <h1> {{ user.username }} </h1>
+        {% else %}
+        <h1> Not Logged In </h1>
+        {% endif %} 
+
         {% load static %}
         <img src={% static 'Img/Ventiqa_Blue.png' %} alt="Ventiqa Logo">
         <div>
             <a href="products/divine">Buy EA</a>
             <a href="products/mystic">Buy News</a>
+        </div>
+        <div>
+                <a href="{% url 'login_user' %}"> Login </a>
+                <a href="{% url 'register_user' %}"> Register </a>
         </div>
     </body>
 </html>

@@ -25,4 +25,8 @@ urlpatterns = [
     path('products/<str:p_name>/checkout/<int:sub_id>/payment/', mainapp.payment, name='payment'),
     path('products/<str:p_name>/checkout/<int:sub_id>/payment/createOrder/', mainapp.createOrder, name='createOrder'),
     path('products/<str:p_name>/checkout/<int:sub_id>/payment/captureOrder/', mainapp.captureOrder, name='captureOrder'), 
+    path('account/', mainapp.user_account, name='user_account'),
+    path('account/login/', mainapp.login_user, name='login_user'),
+    path('account/logout/', mainapp.logout_user, name='logout_user'),
+    path('account/register/', mainapp.register_user, name='register_user'),
 ]
