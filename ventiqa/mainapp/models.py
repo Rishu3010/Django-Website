@@ -7,6 +7,9 @@ class Product(models.Model):
     product_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     remaining_stock = models.IntegerField(default=-1)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(upload_to='img/products/', null=True, blank=True)
+
 
     def __str__(self):
         return self.name
@@ -25,6 +28,44 @@ class Subscription(models.Model):
     
     class Meta:
         verbose_name_plural = 'Subscriptions'
+
+
+class Result(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='img/results', null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.title} - {self.date_uploaded.strftime('%d %b %Y')}"
+    
+    class Meta:
+        verbose_name_plural = 'Results'
+
+class Faq(models.Model):
+    product_name = models.CharField(max_length=100)
+    id = models.AutoField(primary_key=True)
+    question = models.TextField()
+    answer = models.TextField()
+
+    def __str__(self):
+        return f"Question - {self.id}"
+    
+    class Meta:
+        verbose_name_plural = 'FAQs'
+
+
+class PromotionUser(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.email}"
+    
+    class Meta:
+        verbose_name_plural = 'Promotion Users'
+
 
 
 
