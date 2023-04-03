@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from mainapp.models import Product, Subscription
+from mainapp.models import Product, Subscription, Result, Faq, PromotionUser
 from mainapp.forms import CheckoutForm
 from mainapp.payUtils import createOrder, captureOrder
 from ventiqa.settings import CLIENT_ID, APP_SECRET
@@ -12,7 +12,11 @@ from mainapp.forms import RegisterForm
 
 
 def index(request):
-    return render(request, 'index.html')
+    products = Product.objects.all()
+    results = Result.objects.all()
+    faqs = Faq.objects.all()
+    
+    return render(request, 'index.html', {'products': products, 'results' : results, 'faqs' : faqs})
 
 def product_detail(request, p_name):
     product = get_object_or_404(Product, name=p_name.capitalize())
@@ -99,3 +103,23 @@ def user_account(request):
         return render(request, 'account.html', {'user': user})
     else:
         return HttpResponseRedirect('/account/login/')
+    
+def promotion_user(request):
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        name = request.POST.get('name')
+        
+        # check if the email already exists in the database
+        if PromotionUser.objects.filter(email=email).exists():
+            print('You are already subscribed to our newsletter!')
+            return render(request, 'index.html', {'message': 'You are already subscribed to our newsletter!'})
+        else:
+            # save the details to the database
+            obj = PromotionUser.objects.create(email=email, name=name)
+            obj.save()
+            print('You have been subscribed to our newsletter!')
+            return render(request, 'index.html', {'message': 'You have been subscribed to our newsletter!'})
+    
+    else:
+        return redirect('/')

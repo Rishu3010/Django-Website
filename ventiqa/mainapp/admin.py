@@ -1,13 +1,14 @@
 from django.contrib import admin
-from mainapp.models import Product, Subscription
+from mainapp.models import Product, Subscription, Account, Result, Faq, PromotionUser
+from django.contrib.auth.admin import UserAdmin
+
 # Register your models here.
 admin.site.register(Product)
 admin.site.register(Subscription)
+admin.site.register(Result)
+admin.site.register(Faq)
+admin.site.register(PromotionUser)
 
-# Auth
-
-from django.contrib.auth.admin import UserAdmin
-from mainapp.models import Account
 
 class AccountAdmin(UserAdmin):
     list_display = ('email', 'username', 'first_name', 'last_name', 'phone_number', 'country', 'date_joined', 'last_login', 'is_admin', 'is_staff')

@@ -143,3 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Auth settings ~ Rishu
 AUTH_USER_MODEL = 'mainapp.Account'
+
+# Media Files Uploaded by Users are stored here
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
