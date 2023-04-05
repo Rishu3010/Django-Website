@@ -15,8 +15,9 @@ def index(request):
     products = Product.objects.all()
     results = Result.objects.all()
     faqs = Faq.objects.all()
-    
-    return render(request, 'index.html', {'products': products, 'results' : results, 'faqs' : faqs})
+    message = request.session.get('message')
+    request.session.pop('message', None)
+    return render(request, 'index.html', {'products': products, 'results' : results, 'faqs' : faqs, 'message': message})
 
 def product_detail(request, p_name):
     product = get_object_or_404(Product, name=p_name.capitalize())
@@ -109,17 +110,20 @@ def promotion_user(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         name = request.POST.get('name')
-        
+        request.session['message'] = None
         # check if the email already exists in the database
         if PromotionUser.objects.filter(email=email).exists():
-            print('You are already subscribed to our newsletter!')
-            return render(request, 'index.html', {'message': 'You are already subscribed to our newsletter!'})
+            return render(request, 'index.html')
         else:
             # save the details to the database
             obj = PromotionUser.objects.create(email=email, name=name)
             obj.save()
-            print('You have been subscribed to our newsletter!')
-            return render(request, 'index.html', {'message': 'You have been subscribed to our newsletter!'})
+            request.session['message'] = 'You have been subscribed to our newsletter!'
+            return redirect('/')
     
     else:
         return redirect('/')
+    
+def faq(request):
+    faqs = Faq.objects.all()
+    return render(request, 'faq.html', {'faqs': faqs})

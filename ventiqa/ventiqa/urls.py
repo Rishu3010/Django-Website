@@ -32,6 +32,7 @@ urlpatterns = [
     path('account/logout/', mainapp.logout_user, name='logout_user'),
     path('account/register/', mainapp.register_user, name='register_user'),
     path('promotionuser/', mainapp.promotion_user, name='promotionUser'),
+    path('faq/', mainapp.faq, name='faq'),
 ]
 
 if settings.DEBUG:
