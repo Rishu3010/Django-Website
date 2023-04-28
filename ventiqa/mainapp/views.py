@@ -20,9 +20,14 @@ def index(request):
     return render(request, 'index.html', {'products': products, 'results' : results, 'faqs' : faqs, 'message': message})
 
 def product_detail(request, p_name):
-    product = get_object_or_404(Product, name=p_name.capitalize())
+    p_name = p_name.capitalize()
+    product = get_object_or_404(Product, name=p_name)
     subscriptions = product.subscription_set.all()
-    return render(request, 'product.html', {'product': product, 'subscriptions': subscriptions})
+    results = Result.objects.all()
+    faqs = Faq.objects.all()
+
+    return render(request, 'product.html', {'subscriptions': subscriptions, 'results': results, 'faqs': faqs})
+
 
 def checkout(request, p_name, sub_id):
     product = get_object_or_404(Product, name=p_name.capitalize())
