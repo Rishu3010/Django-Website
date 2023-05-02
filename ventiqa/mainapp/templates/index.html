@@ -275,7 +275,7 @@
 							
 							{% for product in products %}
 							<div class="col-lg-6 h-translatey-3 tf-ts">
-								<a href="demo-store.html" class="portfolio-item" target="_blank">
+								<a href={% url 'product_detail' p_name=product.name %} class="portfolio-item" target="_blank">
 									<div class="portfolio-image">
 										<img src={{ product.image.url }} alt="Portfoio Item">
 										<div class="bg-overlay">
