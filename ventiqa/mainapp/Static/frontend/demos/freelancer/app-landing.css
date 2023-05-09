@@ -1,0 +1,70 @@
+/* ----------------------------------------------------------------
+	Canvas: App Landing
+-----------------------------------------------------------------*/
+
+.pricing-box {
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.08);
+}
+
+.pricing-title {
+  background-color: transparent;
+  border-bottom: 0;
+}
+
+.pricing-title h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.pricing-price::after,
+.pricing-features {
+  border: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.pricing-price,
+.pricing-price span {
+  font-weight: 600;
+}
+
+.pricing-price span {
+  margin: 3px 5px 0 0;
+  font-size: 22px;
+}
+
+.pricing-price span.price-tenure {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 10px 0 0 0;
+  text-align: center;
+  color: #333;
+  letter-spacing: 1px;
+}
+
+.pts-switcher input.switch-toggle-round + label::before,
+.pts-switcher input.switch-toggle-round + label {
+  background-color: #3fbbd8;
+}
+
+/* Custom pricing button */
+
+.button.custom-button-border {
+  border: 2px solid #3fbbd8;
+  background-color: #292929;
+  color: #3fbbd8;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.button.custom-button-border:not(.button-fill):hover {
+  background-color: #292929;
+  color: #01fffe;
+  border-color: #01fffe !important;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
