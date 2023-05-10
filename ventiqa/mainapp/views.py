@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from mainapp.models import Product, Subscription, Result, Faq, PromotionUser
@@ -8,7 +9,7 @@ from mainapp.payUtils import createOrder, captureOrder
 from ventiqa.settings import CLIENT_ID, APP_SECRET
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from mainapp.forms import RegisterForm
+from mainapp.forms import RegisterForm, LoginForm
 
 
 def index(request):
@@ -60,21 +61,16 @@ def payment(request, p_name, sub_id):
             
     return render(request, 'payment.html', {'product': product, 'subscription': subscription, "CLIENT_ID": f'{CLIENT_ID}'})
 
+
 def login_user(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
+    form = LoginForm(request.POST or None)
+    if request.POST and form.is_valid():
+        user = form.login(request)
+        if user:
             login(request, user)
-            return HttpResponseRedirect('/account/', {'user': user})
-        else:
-            messages.success(request, ('Error logging in - please try again...'))
-            return HttpResponseRedirect('/login_user')
-        
-    else:
-        context = {}
-        return render(request, 'login.html', context)
+            return HttpResponseRedirect(reverse('user_account'))
+    return render(request, 'login.html', {'form': form})
+
     
 def logout_user(request):
     logout(request)

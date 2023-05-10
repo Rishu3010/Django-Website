@@ -38,4 +38,30 @@ class RegisterForm(UserCreationForm):
         except Exception as e:
             return username
         raise forms.ValidationError(f"Username {username} is already in use")
+    
+class LoginForm(forms.ModelForm):
+    email = forms.EmailField(label='Email', widget=forms.EmailInput, required=True)
+    password = forms.CharField(label='Password', widget=forms.PasswordInput, required=True)
+
+    class Meta:
+        model = Account
+        fields = ("email", "password")
+
+    def clean(self):
+        try:
+            email = self.cleaned_data['email'].lower()
+            password = self.cleaned_data['password']
+        except:
+            raise forms.ValidationError("Invalid Username or Password! Please try again")
+        
+        user = authenticate(email=email, password=password)
+        if not user or not user.is_active:
+            raise forms.ValidationError("Invalid Username or Password! Please try again")
+        return self.cleaned_data
+            
+    def login(self, request):
+        email = self.cleaned_data['email'].lower()
+        password = self.cleaned_data['password']
+        user = authenticate(email=email, password=password)
+        return user
 
