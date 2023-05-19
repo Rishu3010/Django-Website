@@ -1,23 +1,77 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ventiqa</title>
-    </head>
-    <body>
-        <h1>Ventiqa</h1>
-        {% load static %}
-        <img src={% static 'Img/Ventiqa_Blue.png' %} alt="Ventiqa Logo">
-        <form action='' method=POST>
-            {% csrf_token %}
-            <label for="email">Email Address</label>
-            <input type="text" id="email" name="email">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-            <input type="submit" value="Login">
-        </form>
-    </body>
-</html>
+<head>
+	{% load static %}
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="http://fonts.googleapis.com/css?family=Heebo:300,400,500,700,900" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href={% static 'frontend/css/bootstrap.css' %} type="text/css" />
+	<link rel="stylesheet" href={% static 'frontend/style.css' %} type="text/css" />
 
+	<link rel="stylesheet" href={% static 'frontend/css/dark.css' %} type="text/css" />
+	<link rel="stylesheet" href={% static 'frontend/css/font-icons.css' %} type="text/css" />
+	<link rel="stylesheet" href={% static 'frontend/css/animate.css' %} type="text/css" />
+	<link rel="stylesheet" href={% static 'frontend/css/magnific-popup.css' %} type="text/css" />
+
+	<link rel="stylesheet" href={% static 'frontend/css/custom.css' %} type="text/css" />
+
+	<!-- Freelancer Demo Specific Stylesheet -->
+	<link rel="stylesheet" href={% static 'frontend/demos/freelancer/css/fonts.css' %} type="text/css" />
+	<link rel="stylesheet" href={% static 'frontend/demos/freelancer/freelancer.css' %} type="text/css" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="stylesheet" href={% static 'frontend/css/colors.php?color=f7c25e' %} type="text/css" />
+</head>
+ 
+<body style="background:#292929">
+    <div id="logo">
+        <a href={% url 'index' %} class="standard-logo"><img src={% static 'frontend/demos/freelancer/images/logo-svg.svg'%} alt="Canvas Logo" style="width: 13rem;"></a>
+        <a href={% url 'index' %} class="retina-logo"><img src={% static 'frontend/demos/freelancer/images/logo-svg.svg'%} alt="Canvas Logo" style="width: 10rem;"></a>
+    </div><!-- #logo end -->
+    
+    <div class="col-md-5 d-flex flex-column justify-content-center align-items-center mx-auto my-6 p-auto" style="background: #292929">
+        <h3 class="h1 mb-5 custom-blue-color">Log in to your <span class="gradient-text gradient-multiples"></span> Account</h3>
+        <div class="form-widget" data-loader="button" data-alert-type="inline">
+
+            <div class="form-result"></div>
+
+            <form class="row mb-0 p-4 m-auto" id="landing-enquiry" action='' method="post">
+                {% csrf_token %}
+                <div class="form-process"></div>
+                <div class="col-12 form-group mb-5">
+                    <label for="landing-enquiry-email" class="custom-blue-color" style="font-size:1.4rem;">Email:</label>
+                    <input type="email" name="email" id="landing-enquiry-email" class="form-control border-form-control custom-neon-color required" value="">
+                </div>
+                <div class="col-12 form-group mb-4">
+                    <label for="landing-enquiry-password" class="custom-blue-color" style="font-size:1.4rem;">Password:</label>
+                    <input type="password" name="password" id="landing-enquiry-password" class="form-control border-form-control custom-neon-color required" value="">
+                </div>
+
+                
+                <div class="col-12 form-group mb-4">
+                    <a href='' class="custom-blue-color custom-blue-color-hover" style="font-size:1rem;">Forget Password?</a>
+                </div>
+
+                {% if form.non_field_errors %}
+                    <ul style="color: red" class="m-auto p-auto">
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                
+                <button type="submit" name="landing-enquiry-submit" class="button h-translatey-3 bg-dark rounded-pill mx-auto my-4 py-3" style="width: 80%; font-size:1.3rem;" value="Login">Login<i class="icon-line-arrow-right m-0"></i></button>
+                
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
